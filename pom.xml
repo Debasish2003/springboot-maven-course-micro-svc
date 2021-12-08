@@ -28,6 +28,12 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<dependency>
+		    	<groupId>org.sonarsource.scanner.maven</groupId>
+		    	<artifactId>sonar-maven-plugin</artifactId>
+		    	<version>3.4.0.905</version>
+		</dependency>
+		
 		
 			
 	</dependencies>
@@ -39,12 +45,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			
-			<plugin>
-				<groupId>org.sonarsource.scanner.maven</groupId>
-                		<artifactId>sonar-maven-plugin</artifactId>
-                		<version>3.8.0.2131</version>
-			</plugin>
-			
+						
 		</plugins>
 	</build>
 
