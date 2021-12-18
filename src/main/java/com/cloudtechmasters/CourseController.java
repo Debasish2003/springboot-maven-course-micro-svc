@@ -11,11 +11,11 @@ public class CourseController {
 //create two endpoints getAllAwsServices and getAllDevopsTools
     @GetMapping("/getAllAwsServices")
     public List<String> getAllAwsServices(){
-        return Arrays.asList("ec2","iam","rds","ecr","eks");
+        return Arrays.asList("ec2","iam","rds","ecr","eks","test");
     }
 
     @GetMapping("/getAllDevopsTools")
     public List<String> getAllDevopsTools(){
-        return Arrays.asList("git","maven","sonar","nexus","jenkins");
+        return Arrays.asList("git","maven","sonar","nexus","jenkins","test1");
     }
 }
