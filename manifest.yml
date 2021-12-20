@@ -17,8 +17,11 @@ spec:
       containers:
       - name: springboot-container
         image: mydockercontainerregistrydec20.azurecr.io/kube-image:#{Build.BuildId}#
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
+      imagePullSecrets:
+      - name: gradle-secret1    
 		
 		
 ---
