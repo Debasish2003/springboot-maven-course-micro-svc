@@ -25,12 +25,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: spring-boot-service
+  name: maven-service
 spec:
   selector:
-    app: spring-boot
-  ports:
-    - protocol: TCP
-      port: 33333
-      targetPort: 33333
+    app: maven-deploy 
   type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
