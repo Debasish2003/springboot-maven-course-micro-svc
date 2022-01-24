@@ -12,15 +12,15 @@ spec:
   template:
     metadata:
       labels:
-        app: maven-deploy 
+        app: maven-deploy
     spec:
       containers:
       - name: acrserver
         image: azacrjan23.azurecr.io/springboot-maven-course-micro-svc:4
         ports:
-        - containerPort: 8080 
+        - containerPort: 8080
       imagePullSecrets:
-      - name: jenkins-secret		
+      - name: jenkins-secret
 ---
 apiVersion: v1
 kind: Service
@@ -28,7 +28,7 @@ metadata:
   name: maven-service
 spec:
   selector:
-    app: maven-deploy 
+    app: maven-deploy
   type: LoadBalancer
   ports:
   - protocol: TCP
