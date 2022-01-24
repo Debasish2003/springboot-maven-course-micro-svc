@@ -21,3 +21,16 @@ spec:
         - containerPort: 8080
       imagePullSecrets:
       - name: jenkins-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-boot-service
+spec:
+  selector:
+    app: spring-boot
+  ports:
+    - protocol: TCP
+      port: 33333
+      targetPort: 33333
+  type: LoadBalancer
