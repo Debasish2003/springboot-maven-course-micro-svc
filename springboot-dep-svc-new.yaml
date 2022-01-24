@@ -19,5 +19,5 @@ spec:
         image: azacrjan23.azurecr.io/springboot-maven-course-micro-svc:4 
         ports:
         - containerPort: 8080
-      imagePullSecrets: 
+      imagePullSecrets:
       - name: jenkins-secret
