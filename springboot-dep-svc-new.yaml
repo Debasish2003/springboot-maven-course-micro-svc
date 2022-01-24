@@ -21,16 +21,3 @@ spec:
         - containerPort: 8080
       imagePullSecrets: 
       - name: jenkins-secret
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: maven-service
-spec:
-  selector:
-    app: maven-deploy
-  type: LoadBalancer
-  ports:
-  - protocol: TCP
-    port: 8080
-    targetPort: 8080
