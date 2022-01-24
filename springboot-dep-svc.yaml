@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maven-deploy
+  labels:
+    app: maven-deploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: maven-deploy
+  template:
+    metadata:
+      labels:
+        app: maven-deploy 
+    spec:
+      containers:
+      - name: acrserver
+        image: azacrjan23.azurecr.io/springboot-maven-course-micro-svc:4
+        ports:
+        - containerPort: 8080 
+	  imagePullSecrets:
+      - name: jenkins-secret		
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: maven-service
+spec:
+  selector:
+    app: maven-deploy 
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
