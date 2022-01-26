@@ -46,4 +46,7 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+    - publish: $(build.artifactStagingDirectory)
+      artifact: build-artifact
+
       
