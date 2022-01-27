@@ -63,11 +63,11 @@ stages:
 #Save and push the chart to ACR:
 
     - script: |
-       helm chart save $(build.sourcesdirectory)/src/azure-maven-helm-chart/ $(containerRegistry)/$(imageRepository):latest
+       helm save $(build.sourcesdirectory)/src/azure-maven-helm-chart/ $(containerRegistry)/$(imageRepository):latest
       displayName: save the chart and set the alias
   
     - script: |
-        helm chart push $(containerRegistry)/$(imageRepository):latest
+        helm push $(containerRegistry)/$(imageRepository):latest
       displayName: push the chart to acr
 
 
