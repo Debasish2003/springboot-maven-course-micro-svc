@@ -107,6 +107,6 @@ stages:
               namespace: 'default'
               command: 'install'
               chartType: 'FilePath'
-              chartPath: './mavenapp/'
+              chartPath: '$(build.stagingdirectory)/mavenapp/'
               chartVersion: '0.1.0'
           
