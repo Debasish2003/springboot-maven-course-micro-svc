@@ -54,7 +54,6 @@ stages:
       inputs:
         helmVersion: 'latest'
         installKubectl: false
-	
 #Login to the ACR using Helm:
 
     - script: |
