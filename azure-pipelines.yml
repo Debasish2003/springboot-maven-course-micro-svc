@@ -42,7 +42,7 @@ stages:
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
-    steps:
+  
     - task: CopyFiles@2
       displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
       inputs:
@@ -50,7 +50,7 @@ stages:
       Contents: '**/*.jar'
       TargetFolder: '$(build.artifactstagingdirectory)'
       condition: succeededOrFailed()
-    steps:
+  
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: drop'
       inputs:
