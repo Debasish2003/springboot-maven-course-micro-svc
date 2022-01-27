@@ -98,6 +98,15 @@ stages:
             inputs:
               helmVersion: 'latest'
               installKubectl: false
-          - script: |
-              helm install myhelmtestpipe oci://$(containerRegistry)/mymavenapp --version 0.1.0
-            displayName: Install helm with saved chart
+          - task: HelmDeploy@0
+            inputs:
+              connectionType: 'Azure Resource Manager'
+              azureSubscription: 'rg-devops'
+              azureResourceGroup: 'my-rg'
+              kubernetesCluster: 'mykube'
+              namespace: 'default'
+              command: 'install'
+              chartType: 'FilePath'
+              chartPath: './mavenapp'
+              chartVersion: '0.1.0'
+          
