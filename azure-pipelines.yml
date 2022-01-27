@@ -16,6 +16,10 @@ variables:
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
   HELM_EXPERIMENTAL_OCI: 1
+  projectName: "maven-helm"
+  helmChartVersion: $(build.sourceBranchName)
+  helmfrom: $(Build.SourcesDirectory)/deploy/k8s/helm
+  helmto: $(Build.ArtifactStagingDirectory)/deploy/k8s/helm
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -38,6 +42,20 @@ stages:
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
+    steps:
+    - task: CopyFiles@2
+      displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+      inputs:
+      SourceFolder: '$(system.defaultworkingdirectory)'
+      Contents: '**/*.jar'
+      TargetFolder: '$(build.artifactstagingdirectory)'
+      condition: succeededOrFailed()
+    steps:
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: drop'
+      inputs:
+      PathtoPublish: '$(build.artifactstagingdirectory)'
+      condition: succeededOrFailed()
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
@@ -56,7 +74,7 @@ stages:
         helm save $(helm package mymavenapp/)
       displayName: save the chart and set the alias
     - script: |
-        helm push $(containerRegistry)/$(imageRepository):latest
+        helm push mymavenapp-0.0.1.tgz
       displayName: push the chart to acr
 
       
