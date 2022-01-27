@@ -92,7 +92,7 @@ stages:
     strategy:
       runOnce:
         deploy:
-          steps:
+    steps:
     - task: HelmInstaller@0
       displayName: install helm
       inputs:
