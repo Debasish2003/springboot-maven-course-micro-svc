@@ -55,6 +55,11 @@ stages:
           $(tag)
     - publish: $(build.artifactStagingDirectory)
       artifact: build-artifact
+    - task: HelmInstaller@0
+      displayName: install helm
+      inputs:
+        helmVersion: 'latest'
+        installKubectl: false  
     - script: |
         helm registry login $(containerRegistry) --username $(acr.login.username) --password $(acr.login.password)
       displayName: login to acr using helm	
@@ -77,5 +82,6 @@ stages:
       inputs:
         PathtoPublish: '$(build.artifactstagingdirectory)'
       condition: succeededOrFailed()
+
 
       
