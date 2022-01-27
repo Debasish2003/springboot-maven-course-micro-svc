@@ -49,26 +49,5 @@ stages:
           $(tag)
     - publish: $(build.artifactStagingDirectory)
       artifact: build-artifact
-    - task: HelmInstaller@0
-      displayName: install helm
-      inputs:
-        helmVersion: 'latest'
-        installKubectl: false
-#Login to the ACR using Helm:
-
-    - script: |
-        helm registry login $(containerRegistry) --username $(acr.login.username) --password $(acr.login.password)
-      displayName: login to acr using helm	
-
-#Save and push the chart to ACR:
-
-    - script: |
-       helm save $(build.sourcesdirectory)/src/azure-maven-helm-chart/ $(containerRegistry)/$(imageRepository):latest
-      displayName: save the chart and set the alias
-  
-    - script: |
-        helm push $(containerRegistry)/$(imageRepository):latest
-      displayName: push the chart to acr
-
 
       
