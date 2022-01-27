@@ -79,4 +79,25 @@ stages:
       condition: succeededOrFailed()
 
 
-      
+- stage: Deploy
+  displayName: Deploy stage
+  dependsOn: Build
+
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'prod'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: HelmInstaller@0
+		        displayName: install helm
+		        inputs:
+			        helmVersion: 'latest'
+			        installKubectl: false
+          - script: |
+              helm install myhelmtestpipe oci://$(containerRegistry)/mymavenapp --version 0.1.0
+           displayName: Install helm with saved chart
