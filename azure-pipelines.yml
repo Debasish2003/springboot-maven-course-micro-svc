@@ -50,10 +50,10 @@ stages:
     - publish: $(build.artifactStagingDirectory)
       artifact: build-artifact
     - task: HelmInstaller@0
-  displayName: install helm
-  inputs:
-    helmVersion: 'latest'
-    installKubectl: false
+      displayName: install helm
+      inputs:
+        helmVersion: 'latest'
+        installKubectl: false
 	
 #Login to the ACR using Helm:
 
