@@ -49,5 +49,14 @@ stages:
           $(tag)
     - publish: $(build.artifactStagingDirectory)
       artifact: build-artifact
+    - script: |
+        helm registry login $(containerRegistry) --username $(acr.login.username) --password $(acr.login.password)
+      displayName: login to acr using helm	
+    - script: |
+        helm save $(helm package mymavenapp/)
+      displayName: save the chart and set the alias
+    - script: |
+        helm push $(containerRegistry)/$(imageRepository):latest
+      displayName: push the chart to acr
 
       
