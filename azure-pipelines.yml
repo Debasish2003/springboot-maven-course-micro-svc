@@ -43,19 +43,7 @@ stages:
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
   
-    - task: CopyFiles@2
-      displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
-      inputs:
-        SourceFolder: '$(system.defaultworkingdirectory)'
-        Contents: '**/*.jar'
-        TargetFolder: '$(build.artifactstagingdirectory)'
-      condition: succeededOrFailed()
-  
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: drop'
-      inputs:
-        PathtoPublish: '$(build.artifactstagingdirectory)'
-      condition: succeededOrFailed()
+    
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
@@ -71,10 +59,23 @@ stages:
         helm registry login $(containerRegistry) --username $(acr.login.username) --password $(acr.login.password)
       displayName: login to acr using helm	
     - script: |
-        helm save $(helm package mymavenapp/)
+        helm package mymavenapp/
       displayName: save the chart and set the alias
     - script: |
         helm push mymavenapp-0.0.1.tgz
       displayName: push the chart to acr
+    - task: CopyFiles@2
+      displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+      inputs:
+        SourceFolder: '$(system.defaultworkingdirectory)'
+        Contents: '**/*.jar'
+        TargetFolder: '$(build.artifactstagingdirectory)'
+      condition: succeededOrFailed()
+  
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: drop'
+      inputs:
+        PathtoPublish: '$(build.artifactstagingdirectory)'
+      condition: succeededOrFailed()
 
       
