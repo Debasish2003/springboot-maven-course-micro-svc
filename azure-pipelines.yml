@@ -62,7 +62,7 @@ stages:
         helm package mymavenapp/
       displayName: save the chart and set the alias
     - script: |
-        helm push mymavenapp-0.0.1.tgz
+        helm push mymavenapp-0.0.1.tgz oci://$(containerRegistry)
       displayName: push the chart to acr
     - task: CopyFiles@2
       displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
