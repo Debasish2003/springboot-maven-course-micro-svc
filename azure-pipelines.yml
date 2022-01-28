@@ -106,6 +106,9 @@ stages:
           - bash: |
               helm pull oci://$(containerRegistry)/mymavenapp --version 0.1.0
             displayName: get helm chart on agent
+          - bash: |
+              tar xvf $(system.defaultworkingdirectory)/mymavenapp-0.1.0.tgz
+            displayName: unzip downloaded helm chart 
           - task: CopyFiles@2
             inputs:
               SourceFolder: '$(system.defaultworkingdirectory)'
@@ -116,9 +119,7 @@ stages:
               PathtoPublish: '$(Build.ArtifactStagingDirectory)'
               ArtifactName: 'drop'
               publishLocation: 'Container'
-          - bash: |
-              tar xvf $(Build.ArtifactStagingDirectory)/*.tgz
-            displayName: unzip downloaded helm chart 
+          
           - task: HelmDeploy@0
             inputs:
               connectionType: 'Azure Resource Manager'
