@@ -110,7 +110,7 @@ stages:
           - bash: |
               helm export $(containerRegistry)/mymavenapp --version 0.1.0 --destination $(build.stagingdirectory)
             displayName: export the chart to folder
-			
+            
 		      - script: |
                 helm install myhelmtestpipe oci://$(containerRegistry)/mymavenapp --version 0.1.0
             displayName: Install helm with saved chart
