@@ -103,11 +103,11 @@ stages:
             displayName: login to acr using helm
 
           - bash: |
-              helm chart pull $(containerRegistry)/$(acr.repo.name):latest
+              helm pull $(containerRegistry)/$(acr.repo.name):latest
             displayName: get helm chart on agent
             
           - bash: |
-              helm chart export $(containerRegistry)/$(acr.repo.name):latest --destination $(build.stagingdirectory)
+              helm export $(containerRegistry)/$(acr.repo.name):latest --destination $(build.stagingdirectory)
             displayName: export the chart to folder
 
           - script: |
