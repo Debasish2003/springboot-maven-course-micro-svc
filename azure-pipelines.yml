@@ -100,5 +100,5 @@ stages:
               installKubectl: false
           - script: |
               helm install myhelmtestpipe oci://$(containerRegistry)/mymavenapp --version 0.1.0
-           displayName: Install helm with saved chart
+            displayName: Install helm with saved chart
           
