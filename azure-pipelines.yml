@@ -104,7 +104,7 @@ stages:
             displayName: login to acr using helm
 
           - bash: |
-              helm pull oci://(containerRegistry)/mymavenapp --version 0.1.0
+              helm pull oci://$(containerRegistry)/mymavenapp --version 0.1.0
             displayName: get helm chart on agent
             
           - bash: |
