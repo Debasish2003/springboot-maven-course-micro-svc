@@ -99,6 +99,17 @@ stages:
             inputs:
               helmVersion: 'latest'
               installKubectl: false
+          - script: |
+              echo "$(acr.login.password)" | helm registry login $(containerRegistry) --username $(acr.login.username) --password-stdin
+            displayName: login to acr using helm
+
+          - bash: |
+              helm pull oci://(containerRegistry)/mymavenapp --version 0.1.0
+            displayName: get helm chart on agent
+            
+          - bash: |
+              helm export $(containerRegistry)/mymavenapp --version 0.1.0 --destination $(build.artifactstagingdirectory)
+            displayName: export the chart to folder
           - task: HelmDeploy@0
             inputs:
               connectionType: 'Azure Resource Manager'
