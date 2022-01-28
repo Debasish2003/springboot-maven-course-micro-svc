@@ -18,7 +18,7 @@ variables:
   HELM_EXPERIMENTAL_OCI: 1
   projectName: "maven-helm"
   acr.repo.name: mymavenapp
-  
+  releaseName: 'helmdemo'
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
@@ -110,4 +110,5 @@ stages:
               chartType: 'FilePath'
               chartPath: '$(build.artifactstagingdirectory)/drop/mymavenapp/'
               chartVersion: '0.1.0'
+              releaseName: 'helmdemo'
           
