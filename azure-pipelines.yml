@@ -94,16 +94,30 @@ stages:
       runOnce:
         deploy:
           steps:
+          jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'prod'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
           - task: HelmInstaller@0
             displayName: install helm
             inputs:
               helmVersion: 'latest'
               installKubectl: false
-          - script: |
-              echo "$(acr.login.password)" | helm registry login $(containerRegistry) --username $(acr.login.username) --password-stdin
-            displayName: login to acr using helm
-
-          - script: |
-              helm install myhelmtestpipe oci://$(containerRegistry)/mymavenapp --version 0.1.0
-            displayName: Install helm with saved chart
+          - task: HelmDeploy@0
+            inputs:
+              connectionType: 'Azure Resource Manager'
+              azureSubscription: 'rg-devops'
+              azureResourceGroup: 'my-rg'
+              kubernetesCluster: 'mykube'
+              namespace: 'default'
+              command: 'install'
+              chartType: 'FilePath'
+              chartPath: '$(build.stagingdirectory)/mymavenapp/'
+              chartVersion: '0.1.0'
           
