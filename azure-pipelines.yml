@@ -17,6 +17,7 @@ variables:
   tag: '$(Build.BuildId)'
   HELM_EXPERIMENTAL_OCI: 1
   projectName: "maven-helm"
+  acr.repo.name: mymavenapp
   
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
