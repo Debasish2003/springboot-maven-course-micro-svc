@@ -130,6 +130,8 @@ stages:
               command: 'install'
               chartType: 'FilePath'
               chartPath: '$(Build.ArtifactStagingDirectory)/mymavenapp/'
+              chartVersion: '0.1.0'
+              waitForExecution: false
           
             
             
