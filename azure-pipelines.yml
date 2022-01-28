@@ -109,8 +109,8 @@ stages:
           - bash: |
               helm chart export $(containerRegistry)/$(acr.repo.name):latest --destination $(build.stagingdirectory)
             displayName: export the chart to folder
-            
-		      - script: |
+
+          - script: |
               helm install myhelmtestpipe oci://$(containerRegistry)/$(acr.repo.name):latest
             displayName: Install helm with saved chart
           
