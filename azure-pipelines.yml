@@ -94,16 +94,6 @@ stages:
       runOnce:
         deploy:
           steps:
-          jobs:
-  - deployment: Deploy
-    displayName: Deploy
-    pool:
-      vmImage: $(vmImageName)
-    environment: 'prod'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
           - task: HelmInstaller@0
             displayName: install helm
             inputs:
