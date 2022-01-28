@@ -106,20 +106,17 @@ stages:
           - bash: |
               helm pull oci://$(containerRegistry)/mymavenapp --version 0.1.0
             displayName: get helm chart on agent
-            
-          - bash: |
-              helm export $(containerRegistry)/mymavenapp --version 0.1.0 --destination $(build.artifactstagingdirectory)
-            displayName: export the chart to folder
-          - task: HelmDeploy@0
+          - task: CopyFiles@2
             inputs:
-              connectionType: 'Azure Resource Manager'
-              azureSubscription: 'rg-devops'
-              azureResourceGroup: 'my-rg'
-              kubernetesCluster: 'mykube'
-              namespace: 'default'
-              command: 'install'
-              chartType: 'FilePath'
-              chartPath: '$(build.artifactstagingdirectory)/drop/mymavenapp/'
-              chartVersion: '0.1.0'
-              releaseName: 'helmdemo'
+              SourceFolder: '$(system.defaultworkingdirectory)'
+              Contents: '**'
+              TargetFolder: '$(build.artifactstagingdirectory)'
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
+            
+            
+         
           
