@@ -6,7 +6,7 @@ replicaCount: 2
 
 
 image:
-  repository: debasishspringbootmavencoursemicrosvc
+  repository: azacrjan23.azurecr.io/debasishspringbootmavencoursemicrosvc
  
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
