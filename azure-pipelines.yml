@@ -70,7 +70,7 @@ stages:
         displayName: 'Download Pipeline Artifact'
         inputs:
           artifactName: drop
-	    - task: qetza.replacetokens.replacetokens-task.replacetokens@5
+      - task: qetza.replacetokens.replacetokens-task.replacetokens@5
 	      displayName: 'Replace tokens in **/*.yaml'
 	      inputs:
 		      rootDirectory: '$(Pipeline.Workspace)'
