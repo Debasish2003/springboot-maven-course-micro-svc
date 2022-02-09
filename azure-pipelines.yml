@@ -80,7 +80,7 @@ stages:
       displayName: 'Replace tokens in **/*.yaml'
       inputs:
         rootDirectory: '$(system.defaultworkingdirectory)'
-        targetFiles: '/springboot-dep-svc-new.yaml'
+        targetFiles: '**/springboot-dep-svc-new.yaml'
       
        
     - task: Kubernetes@1
