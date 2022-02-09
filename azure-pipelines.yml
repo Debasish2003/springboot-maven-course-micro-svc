@@ -57,7 +57,7 @@ stages:
           $(tag)
 
 - stage: Deploytodev
-  displayName: Deploy stage
+  displayName: Deploytodev
   dependsOn: Build
   jobs:
   - job: deploytodev
