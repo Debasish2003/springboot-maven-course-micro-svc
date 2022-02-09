@@ -79,7 +79,7 @@ stages:
       displayName: 'Replace tokens in **/*.yaml'
       inputs:
         rootDirectory: '$(Pipeline.Workspace)'
-        targetFiles: '**/springboot-dep-svc-new.yaml.yaml'
+        targetFiles: '**/springboot-dep-svc-new.yaml'
       
        
     - task: Kubernetes@1
