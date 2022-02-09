@@ -77,10 +77,10 @@ stages:
           targetFiles: '**/springboot-dep-svc-new.yaml.yaml'
       
       - task: KubernetesManifest@0
+        displayName: deploy
         inputs:
-          action: 'deploy'
           kubernetesServiceConnection: 'kube-sc'
-          namespace: 'default'
+          namespace: default
           manifests: '$(Pipeline.Workspace)/**/springboot-dep-svc-new.yaml'
       
      
