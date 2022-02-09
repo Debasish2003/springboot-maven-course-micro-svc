@@ -97,6 +97,66 @@ stages:
         azureContainerRegistry: 'acrnew09.azurecr.io'
         secretName: 'mypipesecret'
         
+- stage: Deploytotest
+  displayName: Deploytotest
+  dependsOn: Deploytodev
+  jobs:
+  - job: 
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'drop'
+        targetPath: '$(Pipeline.Workspace)'
+    - task: qetza.replacetokens.replacetokens-task.replacetokens@5
+      displayName: 'Replace tokens in **/*.yaml'
+      inputs:
+        rootDirectory: '$(system.defaultworkingdirectory)'
+        targetFiles: '**/springboot-dep-svc-new.yaml'
+      
+       
+    - task: Kubernetes@1
+      inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'kube-sc'
+        namespace: 'default'
+        command: 'apply'
+        useConfigurationFile: true
+        configuration: '$(system.defaultworkingdirectory)/springboot-dep-svc-new.yaml'
+        secretType: 'dockerRegistry'
+        containerRegistryType: 'Azure Container Registry'
+        azureSubscriptionEndpointForSecrets: 'az-rm-sc'
+        azureContainerRegistry: 'acrnew09.azurecr.io'
+        secretName: 'mypipesecret'
+
+- stage: Deploytoprod
+  displayName: Deploytoprod
+  dependsOn: Deploytotest
+  jobs:
+  - job: 
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'drop'
+        targetPath: '$(Pipeline.Workspace)'
+    - task: qetza.replacetokens.replacetokens-task.replacetokens@5
+      displayName: 'Replace tokens in **/*.yaml'
+      inputs:
+        rootDirectory: '$(system.defaultworkingdirectory)'
+        targetFiles: '**/springboot-dep-svc-new.yaml'
+      
+      
+    - task: KubernetesManifest@0
+      inputs:
+        action: 'deploy'
+        kubernetesServiceConnection: 'kube-sc'
+        namespace: 'default'
+        manifests: '$(system.defaultworkingdirectory)/springboot-dep-svc-new.yaml'
       
 
 
