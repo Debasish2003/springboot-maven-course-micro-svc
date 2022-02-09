@@ -76,12 +76,18 @@ stages:
           rootDirectory: '$(Pipeline.Workspace)'
           targetFiles: '**/springboot-dep-svc-new.yaml.yaml'
       
-      - task: KubernetesManifest@0
-        displayName: deploy
-        inputs:
-          kubernetesServiceConnection: 'kube-sc'
-          namespace: default
-          manifests: '$(Pipeline.Workspace)/**/springboot-dep-svc-new.yaml'
+      - task: Kubernetes@0
+  displayName: 'kubectl apply'
+  inputs:
+    kubernetesServiceConnection: 'kube-sc'
+    namespace: default
+    command: apply
+    useConfigurationFile: true
+    configuration: '$(Pipeline.Workspace)/**/springboot-dep-svc-new.yaml'
+    azureSubscription: 'az-rm-sc'
+    azureContainerRegistry: $(containerRegistry)
+    secretName: mypipesecret
+    forceUpdate: false
       
      
       
