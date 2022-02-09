@@ -62,6 +62,19 @@ stages:
 
   jobs:
   - displayName: Deploy
+- task: Kubernetes@0
+  inputs:
+    kubernetesServiceConnection: 'kube-sc'
+    namespace: 'default'
+    command: 'apply'
+    useConfigurationFile: true
+    configuration: '$(Pipeline.Workspace)/**/springboot-dep-svc-new.yaml'
+    secretType: 'dockerRegistry'
+    containerRegistryType: 'Azure Container Registry'
+    azureSubscription: 'az-rm-sc'
+    azureContainerRegistry: '$(containerRegistry)'
+    secretName: 'mypipesecret'
+    forceUpdate: false
     pool:
       vmImage: $(vmImageName)
       steps:
