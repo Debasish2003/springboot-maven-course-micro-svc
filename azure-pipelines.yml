@@ -79,8 +79,8 @@ stages:
     - task: qetza.replacetokens.replacetokens-task.replacetokens@5
       displayName: 'Replace tokens in **/*.yaml'
       inputs:
-        rootDirectory: '$(Pipeline.Workspace)/'
-        targetFiles: '*/springboot-dep-svc-new.yaml'
+        rootDirectory: '$(system.defaultworkingdirectory)'
+        targetFiles: '**/springboot-dep-svc-new.yaml'
       
        
     - task: Kubernetes@1
@@ -90,7 +90,7 @@ stages:
         namespace: 'default'
         command: 'apply'
         useConfigurationFile: true
-        configuration: '$(Pipeline.Workspace)/*/springboot-dep-svc-new.yaml'
+        configuration: '$(system.defaultworkingdirectory)/**/springboot-dep-svc-new.yaml'
         secretType: 'dockerRegistry'
         containerRegistryType: 'Azure Container Registry'
         azureSubscriptionEndpointForSecrets: 'az-rm-sc'
