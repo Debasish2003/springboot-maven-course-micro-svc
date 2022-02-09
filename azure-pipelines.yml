@@ -83,16 +83,6 @@ stages:
           namespace: 'default'
           manifests: '$(Pipeline.Workspace)/**/springboot-dep-svc-new.yaml'
       
-    
-
-     
-       
-      
-      
-
-	    
-
-      
      
       
 
