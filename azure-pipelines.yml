@@ -71,10 +71,10 @@ stages:
         inputs:
           artifactName: drop
       - task: qetza.replacetokens.replacetokens-task.replacetokens@5
-	      displayName: 'Replace tokens in **/*.yaml'
-	      inputs:
-		      rootDirectory: '$(Pipeline.Workspace)'
-		      targetFiles: '**/springboot-dep-svc-new.yaml.yaml'
+        displayName: 'Replace tokens in **/*.yaml'
+        inputs:
+          rootDirectory: '$(Pipeline.Workspace)'
+          targetFiles: '**/springboot-dep-svc-new.yaml.yaml'
       
       - task: KubernetesManifest@0
         inputs:
