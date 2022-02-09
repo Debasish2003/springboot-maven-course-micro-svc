@@ -60,12 +60,10 @@ stages:
   displayName: Deploy stage
   dependsOn: Build
 
-  jobs:
-  - deployment: Deploy
-    displayName: Deploy
+  - job: deploy
+    displayName: deploy
     pool:
       vmImage: $(vmImageName)
-    environment: 'prod'
     steps:
     - task: DownloadPipelineArtifact@2
       displayName: 'Download Pipeline Artifact'
