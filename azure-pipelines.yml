@@ -40,7 +40,7 @@ stages:
         sonarQubeRunAnalysis: false
     
     - task: CopyFiles@2
-      displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+      displayName: 'Copy Files to: '$(build.artifactstagingdirectory)'
       inputs:
       SourceFolder: '$(system.defaultworkingdirectory)'
       TargetFolder: '$(build.artifactstagingdirectory)'
