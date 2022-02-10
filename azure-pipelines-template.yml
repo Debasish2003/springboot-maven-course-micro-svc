@@ -19,3 +19,12 @@ stages:
   displayName: Build and push stage
   jobs:
   - template: azure-pipelines-build-template.yml
+  
+- stage: DeployDEV
+  displayName: 'Deploy to DEV environment'
+  condition: succeeded()
+  dependsOn: Build
+  variables:
+  - group: 'rm-function-apps-dev-env-variable-group'
+  jobs:
+  - template: azure-pipelines-deployment-template.yml
