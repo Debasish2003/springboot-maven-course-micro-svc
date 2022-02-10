@@ -148,7 +148,7 @@ stages:
   dependsOn: Deploytotest
   jobs:
   - deployment:
-    displayName: test deploy
+    displayName: prod deploy
     pool:
       vmImage: $(vmImageName)
     environment: 'Prod'
