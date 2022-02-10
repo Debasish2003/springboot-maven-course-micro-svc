@@ -14,3 +14,4 @@ stages:
     parameters:
       dockerfilePath: '**/Dockerfile'
       tag: '$(Build.BuildId)'
+      dockerRegistryServiceConnection: $(dockerRegistryServiceConnection)
