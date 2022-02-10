@@ -68,7 +68,7 @@ stages:
   jobs:
   - job: deploytodev
     displayName: deploytodev
-    environment: 'dev'
+    environment: dev
     pool:
       vmImage: $(vmImageName)
     steps:
