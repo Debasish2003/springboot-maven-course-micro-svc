@@ -5,15 +5,14 @@ resources:
 - repo: self
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'acr-sc'
-  imageRepository: 'mavenpipeline'
-  containerRegistry: 'acrnew09.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
-  tag: '$(Build.BuildId)'
-  imagePullSecret: 'mypipesecret'
-
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  - group: 'rm-function-apps-dev-env-variable-group'
+  - name: tag
+    value: '$(Build.BuildId)'
+  - name: dockerfilePath
+    value: '**/Dockerfile'
+  - name: dockerRegistryServiceConnection
+    value: acr-sc
+  
 
 stages:
 - stage: Build
