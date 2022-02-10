@@ -3,7 +3,7 @@ jobs:
     displayName: prod deploy
     pool:
       vmImage: $(vmImageName)
-    environment: $
+    environment: $(environment)
     strategy:
       runOnce:
         deploy:
