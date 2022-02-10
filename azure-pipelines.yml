@@ -88,19 +88,19 @@ stages:
               targetFiles: '**/springboot-dep-svc-new.yaml'
       
        
-    - task: Kubernetes@1
-      inputs:
-        connectionType: 'Kubernetes Service Connection'
-        kubernetesServiceEndpoint: 'kube-sc'
-        namespace: 'default'
-        command: 'apply'
-        useConfigurationFile: true
-        configuration: '$(system.defaultworkingdirectory)/springboot-dep-svc-new.yaml'
-        secretType: 'dockerRegistry'
-        containerRegistryType: 'Azure Container Registry'
-        azureSubscriptionEndpointForSecrets: 'az-rm-sc'
-        azureContainerRegistry: 'acrnew09.azurecr.io'
-        secretName: 'mypipesecret'
+          - task: Kubernetes@1
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceEndpoint: 'kube-sc'
+              namespace: 'default'
+              command: 'apply'
+              useConfigurationFile: true
+              configuration: '$(system.defaultworkingdirectory)/springboot-dep-svc-new.yaml'
+              secretType: 'dockerRegistry'
+              containerRegistryType: 'Azure Container Registry'
+              azureSubscriptionEndpointForSecrets: 'az-rm-sc'
+              azureContainerRegistry: 'acrnew09.azurecr.io'
+              secretName: 'mypipesecret'
     
         
 - stage: Deploytotest
