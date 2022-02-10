@@ -1,0 +1,29 @@
+jobs:
+  - deployment:
+    displayName: prod deploy
+    pool:
+      vmImage: $(vmImageName)
+    environment: $
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: 'drop'
+              targetPath: '$(Pipeline.Workspace)'
+
+          - task: qetza.replacetokens.replacetokens-task.replacetokens@5
+            displayName: 'Replace tokens in **/*.yaml'
+            inputs:
+              rootDirectory: '$(system.defaultworkingdirectory)'
+              targetFiles: '**/springboot-dep-svc-new.yaml'
+      
+      
+          - task: KubernetesManifest@0
+            inputs:
+              action: 'deploy'
+              kubernetesServiceConnection: $(kubernetesServiceConnection)
+              namespace: 'default'
+              manifests: '$(system.defaultworkingdirectory)/springboot-dep-svc-new.yaml'
