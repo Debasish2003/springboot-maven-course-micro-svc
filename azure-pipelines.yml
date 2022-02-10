@@ -68,20 +68,25 @@ stages:
   jobs:
   - deployment:
     displayName: Dev deploy
-    environment: Dev
     pool:
       vmImage: $(vmImageName)
-    steps:
-    - task: DownloadPipelineArtifact@2
-      inputs:
-        buildType: 'current'
-        artifactName: 'drop'
-        targetPath: '$(Pipeline.Workspace)'
-    - task: qetza.replacetokens.replacetokens-task.replacetokens@5
-      displayName: 'Replace tokens in **/*.yaml'
-      inputs:
-        rootDirectory: '$(system.defaultworkingdirectory)'
-        targetFiles: '**/springboot-dep-svc-new.yaml'
+    environment: 'Dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+            buildType: 'current'
+            artifactName: 'drop'
+            targetPath: '$(Pipeline.Workspace)'
+
+          - task: qetza.replacetokens.replacetokens-task.replacetokens@5
+            displayName: 'Replace tokens in **/*.yaml'
+            inputs:
+              rootDirectory: '$(system.defaultworkingdirectory)'
+              targetFiles: '**/springboot-dep-svc-new.yaml'
       
        
     - task: Kubernetes@1
@@ -97,6 +102,7 @@ stages:
         azureSubscriptionEndpointForSecrets: 'az-rm-sc'
         azureContainerRegistry: 'acrnew09.azurecr.io'
         secretName: 'mypipesecret'
+    
         
 - stage: Deploytotest
   displayName: Deploytotest
