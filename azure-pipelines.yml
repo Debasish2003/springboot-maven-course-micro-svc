@@ -169,14 +169,12 @@ stages:
               targetFiles: '**/springboot-dep-svc-new.yaml'
       
       
-    - task: KubernetesManifest@0
-      inputs:
-        action: 'deploy'
-        kubernetesServiceConnection: 'kube-sc'
-        namespace: 'default'
-        manifests: '$(system.defaultworkingdirectory)/springboot-dep-svc-new.yaml'
-      
-
+          - task: KubernetesManifest@0
+            inputs:
+              action: 'deploy'
+              kubernetesServiceConnection: 'kube-sc'
+              namespace: 'default'
+              manifests: '$(system.defaultworkingdirectory)/springboot-dep-svc-new.yaml'
 
     
     
