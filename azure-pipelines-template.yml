@@ -8,15 +8,5 @@ resources:
 stages:
 - stage: Build
   displayName: Build and push stage
-  variables:
-  - group: 'rm-function-apps-dev-env-variable-group'
-  - name: tag
-    value: '$(Build.BuildId)'
-  - name: dockerfilePath
-    value: '**/Dockerfile'
   jobs:
   - template: azure-pipelines-build-template.yml
-    parameters:  
-      dockerRegistryServiceConnection: $(dockerRegistryServiceConnection)
-      imageRepository: $(imageRepository)
-      vmImageName: $(vmImageName)
