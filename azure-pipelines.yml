@@ -66,9 +66,9 @@ stages:
   displayName: Deploytodev
   dependsOn: Build
   jobs:
-  - job: deploytodev
-    displayName: deploytodev
-    environment: dev
+  - deployment:
+    displayName: Dev deploy
+    environment: Dev
     pool:
       vmImage: $(vmImageName)
     steps:
