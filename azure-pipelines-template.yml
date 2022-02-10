@@ -17,6 +17,6 @@ stages:
   jobs:
   - template: azure-pipelines-build-template.yml
     parameters:  
-      containerRegistry: $(dockerRegistryServiceConnection)
+      dockerRegistryServiceConnection: $(dockerRegistryServiceConnection)
       repository: $(imageRepository)
       vmImageName: $(vmImageName)
