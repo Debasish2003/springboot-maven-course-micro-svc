@@ -1,3 +1,20 @@
+parameters:
+  - name: vmImageName
+    type: string
+    default: 
+  - name: imageRepository
+    type: string
+    default: 
+  - name: dockerfilePath
+    type: string
+    default: 
+  - name: dockerRegistryServiceConnection
+    type: string
+    default: 
+  - name: tag
+    type: string
+    default: 
+
 jobs:
   - job: Build
     displayName: Build
