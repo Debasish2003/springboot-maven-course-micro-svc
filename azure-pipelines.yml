@@ -107,56 +107,66 @@ stages:
   displayName: Deploytotest
   dependsOn: Deploytodev
   jobs:
-  - job: 
+  - deployment:
+    displayName: test deploy
     pool:
       vmImage: $(vmImageName)
-      environment: 'test'
-    steps:
-    - task: DownloadPipelineArtifact@2
-      inputs:
-        buildType: 'current'
-        artifactName: 'drop'
-        targetPath: '$(Pipeline.Workspace)'
-    - task: qetza.replacetokens.replacetokens-task.replacetokens@5
-      displayName: 'Replace tokens in **/*.yaml'
-      inputs:
-        rootDirectory: '$(system.defaultworkingdirectory)'
-        targetFiles: '**/springboot-dep-svc-new.yaml'
+    environment: 'Test'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: 'drop'
+              targetPath: '$(Pipeline.Workspace)'
+
+          - task: qetza.replacetokens.replacetokens-task.replacetokens@5
+            displayName: 'Replace tokens in **/*.yaml'
+            inputs:
+              rootDirectory: '$(system.defaultworkingdirectory)'
+              targetFiles: '**/springboot-dep-svc-new.yaml'
       
        
-    - task: Kubernetes@1
-      inputs:
-        connectionType: 'Kubernetes Service Connection'
-        kubernetesServiceEndpoint: 'kube-sc'
-        namespace: 'default'
-        command: 'apply'
-        useConfigurationFile: true
-        configuration: '$(system.defaultworkingdirectory)/springboot-dep-svc-new.yaml'
-        secretType: 'dockerRegistry'
-        containerRegistryType: 'Azure Container Registry'
-        azureSubscriptionEndpointForSecrets: 'az-rm-sc'
-        azureContainerRegistry: 'acrnew09.azurecr.io'
-        secretName: 'mypipesecret'
+          - task: Kubernetes@1
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceEndpoint: 'kube-sc'
+              namespace: 'default'
+              command: 'apply'
+              useConfigurationFile: true
+              configuration: '$(system.defaultworkingdirectory)/springboot-dep-svc-new.yaml'
+              secretType: 'dockerRegistry'
+              containerRegistryType: 'Azure Container Registry'
+              azureSubscriptionEndpointForSecrets: 'az-rm-sc'
+              azureContainerRegistry: 'acrnew09.azurecr.io'
+              secretName: 'mypipesecret'
 
 - stage: Deploytoprod
   displayName: Deploytoprod
   dependsOn: Deploytotest
   jobs:
-  - job: 
+  - deployment:
+    displayName: test deploy
     pool:
       vmImage: $(vmImageName)
-      environment: 'prod'
-    steps:
-    - task: DownloadPipelineArtifact@2
-      inputs:
-        buildType: 'current'
-        artifactName: 'drop'
-        targetPath: '$(Pipeline.Workspace)'
-    - task: qetza.replacetokens.replacetokens-task.replacetokens@5
-      displayName: 'Replace tokens in **/*.yaml'
-      inputs:
-        rootDirectory: '$(system.defaultworkingdirectory)'
-        targetFiles: '**/springboot-dep-svc-new.yaml'
+    environment: 'Prod'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: 'drop'
+              targetPath: '$(Pipeline.Workspace)'
+
+          - task: qetza.replacetokens.replacetokens-task.replacetokens@5
+            displayName: 'Replace tokens in **/*.yaml'
+            inputs:
+              rootDirectory: '$(system.defaultworkingdirectory)'
+              targetFiles: '**/springboot-dep-svc-new.yaml'
       
       
     - task: KubernetesManifest@0
