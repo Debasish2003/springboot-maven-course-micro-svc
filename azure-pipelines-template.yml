@@ -4,14 +4,9 @@ trigger:
 resources:
 - repo: self
 
-stages:
-- stage: Build
-  displayName: Build and push stage
-  variables:
+pool:
+      vmImage: ubuntu-latest
+variables:
   - group: 'rm-function-apps-dev-env-variable-group'
-  jobs:
-  - template: azure-pipelines-build-template.yml
-    parameters:
-      dockerfilePath: '**/Dockerfile'
-      tag: '$(Build.BuildId)'
-      dockerRegistryServiceConnection: $(dockerRegistryServiceConnection)
+steps:
+- script: echo $(dockerRegistryServiceConnection)
