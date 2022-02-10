@@ -3,7 +3,17 @@ trigger:
 
 resources:
 - repo: self
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: 'acr-sc'
+  imageRepository: 'mavenpipeline'
+  containerRegistry: 'acrnew09.azurecr.io'
+  dockerfilePath: '**/Dockerfile'
+  tag: '$(Build.BuildId)'
+  imagePullSecret: 'mypipesecret'
 
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
 
 stages:
 - stage: Build
