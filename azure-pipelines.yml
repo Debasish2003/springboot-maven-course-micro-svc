@@ -71,7 +71,8 @@ stages:
       inputs:
         buildType: 'specific'
         project: 'ce38e970-3a2b-471b-a7c7-6001d298e3ae'
-        definition: '3'
+        definition: '5'
+        specificBuildWithTriggering: true
         buildVersionToDownload: 'latest'
         tags: 'Build.BuildId'
         artifactName: 'drop'
