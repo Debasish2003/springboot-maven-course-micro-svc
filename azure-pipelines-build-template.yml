@@ -1,4 +1,7 @@
-
+parameters:
+  - name: vmImageName
+    type: string
+    default:
 jobs:
   - job: Build
     displayName: Build
