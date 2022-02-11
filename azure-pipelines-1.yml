@@ -15,9 +15,9 @@ variables:
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
-  
+
 stages:
--stage: Deploytodev
+- stage: Deploytodev
   displayName: Deploytodev
   jobs:
   - deployment:
