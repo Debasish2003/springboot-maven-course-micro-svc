@@ -32,7 +32,7 @@ stages:
           - task: qetza.replacetokens.replacetokens-task.replacetokens@5
             displayName: 'Replace tokens in **/*.yaml'
             inputs:
-              rootDirectory: '$(build.artifactstagingdirectory)'
+              rootDirectory: '$(system.defaultworkingdirectory)'
               targetFiles: '**/springboot-dep-svc-new.yaml'
       
        
