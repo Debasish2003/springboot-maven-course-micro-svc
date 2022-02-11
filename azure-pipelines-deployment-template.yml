@@ -1,8 +1,8 @@
 parameters:
   - name: vmImageName
     type: string
-    default:
-    
+    default: 
+
 jobs:
   - deployment:
     displayName: prod deploy
