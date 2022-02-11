@@ -1,0 +1,35 @@
+trigger:
+- master
+
+resources:
+- repo: self
+variables:
+  # Container registry service connection established during pipeline creation
+  - group: 'rm-function-apps-dev-env-variable-group'
+  - name: tag
+    value: '$(Build.BuildId)'
+  - name: dockerfilePath
+    value: '**/Dockerfile'
+  - name: dockerRegistryServiceConnection
+    value: acr-sc
+  
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - template: azure-pipelines-build-template.yml
+    parameters:
+	  vmImageName: 'ubuntu-latest' 
+	  # or
+	  # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
+	  
+  
+- stage: DeployDEV
+  displayName: 'Deploy to DEV environment'
+  condition: succeeded()
+  dependsOn: Build
+  variables:
+  - group: 'rm-function-apps-dev-env-variable-group'
+  jobs:
+  - template: azure-pipelines-deployment-template.yml
