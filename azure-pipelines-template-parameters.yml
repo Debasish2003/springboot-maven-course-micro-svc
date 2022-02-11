@@ -33,3 +33,5 @@ stages:
   - group: 'rm-function-apps-dev-env-variable-group'
   jobs:
   - template: azure-pipelines-deployment-template.yml
+    parameters:
+	  vmImageName: 'ubuntu-latest'
