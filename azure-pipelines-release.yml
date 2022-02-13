@@ -35,7 +35,6 @@ stages:
               buildVersionToDownload: 'latest'
               artifactName: 'drop'
               targetPath: '$(Pipeline.Workspace)'
-
           - task: qetza.replacetokens.replacetokens-task.replacetokens@5
             displayName: 'Replace tokens in **/*.yaml'
             inputs:
