@@ -4,6 +4,9 @@ trigger:
 resources:
 - repo: self
 
+# Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'acr-sc'
