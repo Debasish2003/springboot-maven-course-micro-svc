@@ -15,7 +15,6 @@ variables:
 stages:
 - stage: Deploytodev
   displayName: Deploytodev
-  dependsOn: Build
   jobs:
   - deployment:
     displayName: Dev deploy
