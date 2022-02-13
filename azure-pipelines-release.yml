@@ -12,7 +12,7 @@ variables:
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'mypipesecret'
-
+stages:
 - stage: Deploytodev
   displayName: Deploytodev
   dependsOn: Build
