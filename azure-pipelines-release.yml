@@ -4,8 +4,7 @@ trigger:
 resources:
 - repo: self
 
-# Agent VM image name
-  vmImageName: 'ubuntu-latest'
+
 
 variables:
   # Container registry service connection established during pipeline creation
@@ -15,6 +14,9 @@ variables:
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'mypipesecret'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
 stages:
 - stage: Deploytodev
   displayName: Deploytodev
