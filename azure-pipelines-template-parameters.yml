@@ -3,6 +3,7 @@ trigger:
 
 resources:
 - repo: self
+
 variables:
   # Container registry service connection established during pipeline creation
   - group: 'rm-function-apps-dev-env-variable-group'
