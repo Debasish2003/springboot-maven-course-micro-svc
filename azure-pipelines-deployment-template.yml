@@ -2,11 +2,7 @@ parameters:
   - name: vmImageName
     type: string
     default:
-  - name: pipeline-name
-    type: string
-    default:
-
-jobs:
+  jobs:
   - deployment:
     displayName: $(environment)-Deploy
     pool:
