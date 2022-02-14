@@ -13,7 +13,7 @@ variables:
   - name: dockerRegistryServiceConnection
     value: acr-sc
   - name: pipeline-name
-    value: 'Debasish2003.multi-stage-parameters'
+    value: '$(Build.DefinitionVersion)'
 stages:
 - stage: Build
   displayName: Build and push stage
@@ -65,3 +65,12 @@ stages:
       pipeline-name: '$(pipeline-name)'
       # or
       # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
+- task: DownloadPipelineArtifact@2
+  inputs:
+    buildType: 'specific'
+    project: 'ce38e970-3a2b-471b-a7c7-6001d298e3ae'
+    definition: '10'
+    specificBuildWithTriggering: true
+    buildVersionToDownload: 'latest'
+    artifactName: 'drop'
+    targetPath: '$(Pipeline.Workspace)'
