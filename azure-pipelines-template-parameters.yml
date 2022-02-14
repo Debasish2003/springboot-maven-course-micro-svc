@@ -20,10 +20,11 @@ stages:
   jobs:
   - template: azure-pipelines-build-template.yml
     parameters:
-      vmImageName: 'ubuntu-latest' 
-    # or
-    # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
-
+	  vmImageName: 'ubuntu-latest' 
+	  # or
+	  # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
+	  
+  
 - stage: DeployDEV
   displayName: 'Deploy to DEV environment'
   condition: succeeded()
@@ -33,4 +34,32 @@ stages:
   jobs:
   - template: azure-pipelines-deployment-template.yml
     parameters:
-      vmImageName: 'ubuntu-latest'
+	  vmImageName: 'ubuntu-latest' 
+	  # or
+	  # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
+	  
+- stage: DeployQA
+  displayName: 'Deploy to QA environment'
+  condition: succeeded()
+  dependsOn: Build
+  variables:
+  - group: 'rm-function-apps-dev-env-variable-group'
+  jobs:
+  - template: azure-pipelines-deployment-template.yml
+    parameters:
+	  vmImageName: 'ubuntu-latest' 
+	  # or
+	  # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
+	  
+- stage: DeployPROD
+  displayName: 'Deploy to PROD environment'
+  condition: succeeded()
+  dependsOn: Build
+  variables:
+  - group: 'rm-function-apps-dev-env-variable-group'
+  jobs:
+  - template: azure-pipelines-deployment-template.yml
+    parameters:
+	  vmImageName: 'ubuntu-latest' 
+	  # or
+	  # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
