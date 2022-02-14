@@ -15,8 +15,8 @@
           - task: DownloadPipelineArtifact@2
             inputs:
              buildType: 'specific'
-             project: '$(project)'
-             definition: '$(pipeline-name)'
+             project: 'ce38e970-3a2b-471b-a7c7-6001d298e3ae'
+             definition: '10'
              specificBuildWithTriggering: true
              buildVersionToDownload: 'latest'
              artifactName: 'drop'
