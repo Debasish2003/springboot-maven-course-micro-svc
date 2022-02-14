@@ -12,7 +12,6 @@ variables:
     value: '**/Dockerfile'
   - name: dockerRegistryServiceConnection
     value: acr-sc
-  
 
 stages:
 - stage: Build
@@ -22,9 +21,8 @@ stages:
     parameters:
       vmImageName: 'ubuntu-latest'
       # or
-      # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
-	  
-  
+      # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.  
+
 - stage: DeployDEV
   displayName: 'Deploy to DEV environment'
   condition: succeeded()
@@ -52,7 +50,7 @@ stages:
       pipeline-name: multi-stage-parameters
       # or
       # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
-	  
+ 
 - stage: DeployPROD
   displayName: 'Deploy to PROD environment'
   condition: succeeded()
