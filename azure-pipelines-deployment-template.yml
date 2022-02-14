@@ -15,7 +15,7 @@
           - task: DownloadPipelineArtifact@2
             inputs:
              buildType: 'specific'
-             project: 'Maven-kubernetes-yaml-pipeline'
+             project: '$(project)'
              definition: '$(pipeline-name)'
              specificBuildWithTriggering: true
              buildVersionToDownload: 'latest'
