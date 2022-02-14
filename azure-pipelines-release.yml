@@ -1,3 +1,4 @@
+name: $(Release.DefinitionName)-$(Build.BuildId)
 trigger:
 - master
 
@@ -32,13 +33,14 @@ stages:
           steps:
           - task: DownloadPipelineArtifact@2
             inputs:
-              buildType: 'specific'
-              project: 'ce38e970-3a2b-471b-a7c7-6001d298e3ae'
-              definition: '8'
-              specificBuildWithTriggering: true
-              buildVersionToDownload: 'latest'
-              artifactName: 'drop'
-              targetPath: '$(Pipeline.Workspace)'
+            buildType: 'specific'
+            project: 'Maven-kubernetes-yaml-pipeline'
+            definition: '8'
+            specificBuildWithTriggering: true
+            buildVersionToDownload: 'latest'
+            artifactName: 'drop'
+            targetPath: '$(Pipeline.Workspace)'
+          
           - task: qetza.replacetokens.replacetokens-task.replacetokens@5
             displayName: 'Replace tokens in **/*.yaml'
             inputs:
