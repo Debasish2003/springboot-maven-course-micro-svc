@@ -34,11 +34,10 @@ stages:
   jobs:
   - template: azure-pipelines-deployment-template.yml
     parameters:
-	  vmImageName: 'ubuntu-latest'
-	  pipeline-name: multi-stage-parameters
-      '$(project_name)'	  
-	  # or
-	  # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
+      vmImageName: 'ubuntu-latest'
+      pipeline-name: multi-stage-parameters
+      # or
+      # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
 	  
 - stage: DeployQA
   displayName: 'Deploy to QA environment'
@@ -49,10 +48,10 @@ stages:
   jobs:
   - template: azure-pipelines-deployment-template.yml
     parameters:
-	  vmImageName: 'ubuntu-latest' 
-	  pipeline-name: multi-stage-parameters
-	  # or
-	  # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
+      vmImageName: 'ubuntu-latest' 
+      pipeline-name: multi-stage-parameters
+      # or
+      # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
 	  
 - stage: DeployPROD
   displayName: 'Deploy to PROD environment'
@@ -63,7 +62,7 @@ stages:
   jobs:
   - template: azure-pipelines-deployment-template.yml
     parameters:
-	  vmImageName: 'ubuntu-latest' 
-	  pipeline-name: multi-stage-parameters
-	  # or
-	  # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
+      vmImageName: 'ubuntu-latest' 
+       pipeline-name: multi-stage-parameters
+       # or
+       # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
