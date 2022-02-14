@@ -12,7 +12,8 @@ variables:
     value: '**/Dockerfile'
   - name: dockerRegistryServiceConnection
     value: acr-sc
-
+  - name: pipeline-name
+    value: 'Debasish2003.multi-stage-parameters'
 stages:
 - stage: Build
   displayName: Build and push stage
@@ -33,7 +34,7 @@ stages:
   - template: azure-pipelines-deployment-template.yml
     parameters:
       vmImageName: 'ubuntu-latest'
-      pipeline-name: 'Debasish2003.multi-stage-parameters'
+      pipeline-name: '$(pipeline-name)'
       # or
       # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
   
@@ -47,7 +48,7 @@ stages:
   - template: azure-pipelines-deployment-template.yml
     parameters:
       vmImageName: 'ubuntu-latest' 
-      pipeline-name: 'Debasish2003.multi-stage-parameters'
+      pipeline-name: '$(pipeline-name)'
       # or
       # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
  
@@ -61,6 +62,6 @@ stages:
   - template: azure-pipelines-deployment-template.yml
     parameters:
       vmImageName: 'ubuntu-latest' 
-      pipeline-name: 'Debasish2003.multi-stage-parameters'
+      pipeline-name: '$(pipeline-name)'
       # or
       # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
