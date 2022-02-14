@@ -1,7 +1,10 @@
 parameters:
   - name: vmImageName
     type: string
-    default: 
+    default:
+  - name: pipeline-name
+    type: string
+    default:
 
 jobs:
   - deployment:
