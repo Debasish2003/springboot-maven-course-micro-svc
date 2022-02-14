@@ -20,9 +20,9 @@ stages:
   jobs:
   - template: azure-pipelines-build-template.yml
     parameters:
-	  vmImageName: 'ubuntu-latest'
-	  # or
-	  # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
+      vmImageName: 'ubuntu-latest'
+      # or
+      # vmImageName: $(vmImageName) , if vmImageName is defined as variables in variable group.
 	  
   
 - stage: DeployDEV
