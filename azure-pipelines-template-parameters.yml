@@ -56,7 +56,7 @@ stages:
 - stage: DeployPROD
   displayName: 'Deploy to PROD environment'
   condition: succeeded()
-  dependsOn: Build
+  dependsOn: DeployQA
   variables:
   - group: 'rm-function-apps-dev-env-variable-group'
   jobs:
