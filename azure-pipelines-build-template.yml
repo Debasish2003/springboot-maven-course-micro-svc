@@ -23,12 +23,12 @@ jobs:
       displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
       inputs:
         SourceFolder: '$(system.defaultworkingdirectory)'
-        TargetFolder: '$(Pipeline.Workspace)'
+        TargetFolder: '$(build.artifactstagingdirectory)'
       condition: succeededOrFailed()
     
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: '$(Pipeline.Workspace)'
+        targetPath: '$(build.artifactstagingdirectory)'
         artifact: 'drop'
         publishLocation: 'pipeline'
     
